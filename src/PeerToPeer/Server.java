@@ -12,7 +12,6 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,9 +61,9 @@ public class Server implements Runnable {
                         System.out.println("Usuario Connectado: "+entry.getKey()+"\t"+entry.getValue());
                     }                   
                 }
-                if (Line.compareTo("--jugar")==0) {
-                    new Palabras().frase();
-                }
+//                if (Line.compareTo("--jugar")==0) {
+//                    new Palabras().frase();
+//                }
             } catch (IOException ex) {
                 Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InterruptedException ex) {
