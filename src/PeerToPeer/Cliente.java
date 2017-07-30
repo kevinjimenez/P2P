@@ -93,6 +93,7 @@ public class Cliente implements Runnable{
                     }
                 }
             }
+            //System.out.println(tokens.nextToken());
         return tokens.nextToken(); 
         }          
         if(index.equals("report")){
