@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -23,6 +24,7 @@ public class Palabras {
         
     Stack < Integer > listRandom;
     HashMap<Integer, String> listaPalabrar; 
+    ArrayList<Barajas> listaPro;
     File texto ;
     BufferedReader in;
     StringTokenizer tokens;
@@ -32,12 +34,13 @@ public class Palabras {
 
     public Palabras() throws FileNotFoundException {
         listaPalabrar = new HashMap<>();
+        listaPro=new ArrayList<>();
         texto = new File("src/frases.txt");
         in = new BufferedReader(new FileReader(texto));
     }
     
     
-    public void frase() throws IOException {                
+    public ArrayList<Barajas> frase() throws IOException {                
         Line = in.readLine();
         tokens = new StringTokenizer(Line," ");        
         int i = 1;
@@ -47,8 +50,18 @@ public class Palabras {
             i++;
         }      
         for (Integer word : reparto(listaPalabrar.size())) {
-            System.out.println(word+" = "+listaPalabrar.get(word));
+            //System.out.println(word+" = "+listaPalabrar.get(word));
+            Barajas carta = new Barajas();
+            carta.id=word;
+            carta.palabra=listaPalabrar.get(word);
+            listaPro.add(carta);
         }
+//        System.out.println("\n");
+//        for (Barajas x : listaPro) {
+//            System.out.println(x.id+" : "+x.palabra);
+//        }
+        return listaPro;
+        
     }
     
     private Stack<Integer> reparto(int tamano){
@@ -62,6 +75,7 @@ public class Palabras {
         }        
         return listRandom;
     }
+    
     
     
 }

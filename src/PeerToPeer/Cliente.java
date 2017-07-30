@@ -32,13 +32,16 @@ public class Cliente implements Runnable{
     int port;    
     HashMap<String , String> map;
     byte [] buffer;
+    Palabras cartas;
+    
    
-    public Cliente(InetAddress ipBroadcast,int port,String name,HashMap<String,String> map) throws SocketException{
+    public Cliente(InetAddress ipBroadcast,int port,String name,HashMap<String,String> map) throws SocketException, FileNotFoundException{
         this.broadcastAddr = ipBroadcast;
         this.usrName=name;
         this.port=port;
         this.map=map;       
         ds = new DatagramSocket(port);                
+        cartas = new Palabras();
     }
     @Override
     public void run() {
@@ -114,8 +117,11 @@ public class Cliente implements Runnable{
             String next = tokens.nextToken();        
             System.out.println("siguiente token: "+next.toString());
             if (next.toString().equals("play")) {
-                //System.out.println("bien vaquero");
-                new Palabras().frase();
+                System.out.println("bien vaquero");
+                for (Barajas b : cartas.frase()) {
+                    System.out.println(b.id+":"+b.palabra);
+                }
+                //new Palabras().frase();
             }
         return next;
         }

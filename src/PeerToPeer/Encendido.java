@@ -5,6 +5,7 @@
  */
 package PeerToPeer;
 
+import java.io.FileNotFoundException;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
@@ -29,7 +30,7 @@ public class Encendido {
         this.port = port;
     }        
     
-    public void turnUP() throws SocketException{
+    public void turnUP() throws SocketException, FileNotFoundException{
         NetworkInterface netInt = NetworkInterface.getByName(nombreInterfaz);
         for (InterfaceAddress intAddr : netInt.getInterfaceAddresses()) {
             InetAddress addr = intAddr.getBroadcast();

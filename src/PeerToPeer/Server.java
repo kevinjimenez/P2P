@@ -6,12 +6,14 @@
 package PeerToPeer;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +26,7 @@ import java.util.logging.Logger;
  * @author kevin
  */
 public class Server implements Runnable {
-
+    
     DatagramSocket ds;
     DatagramPacket dp;
     InetAddress broadcastAddr;    
@@ -34,13 +36,15 @@ public class Server implements Runnable {
     int port;
     String usrName; 
     String Line=null;
+    Palabras cards;
             
-    public Server(InetAddress broadcastAddr,int port,String name,HashMap<String,String> map) throws SocketException{
+    public Server(InetAddress broadcastAddr,int port,String name,HashMap<String,String> map) throws SocketException, FileNotFoundException{
         this.usrName=name;
         this.broadcastAddr=broadcastAddr;
         this.port=port;
         this.map=map;
         this.ds=new DatagramSocket();        
+        cards=new Palabras();
     }
     @Override
     public void run() {       
@@ -61,9 +65,12 @@ public class Server implements Runnable {
                         System.out.println("Usuario Connectado: "+entry.getKey()+"\t"+entry.getValue());
                     }                   
                 }
-//                if (Line.compareTo("--jugar")==0) {
-//                    new Palabras().frase();
-//                }
+                if (Line.compareTo("--jugar")==0) {
+                    System.out.println("holaaaaaaaaaa");
+//                    for (Barajas b : cards.listaPro) {
+//                        System.out.println(b.id+" - "+b.palabra);
+//                    }
+                }
             } catch (IOException ex) {
                 Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InterruptedException ex) {
