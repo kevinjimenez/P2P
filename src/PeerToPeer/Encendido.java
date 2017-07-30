@@ -27,16 +27,13 @@ public class Encendido {
     public Encendido(String usrNamr, int port) {
         this.usrNamr = usrNamr;
         this.port = port;
-    }
-    
-    
+    }        
     
     public void turnUP() throws SocketException{
         NetworkInterface netInt = NetworkInterface.getByName(nombreInterfaz);
         for (InterfaceAddress intAddr : netInt.getInterfaceAddresses()) {
             InetAddress addr = intAddr.getBroadcast();
-            if (addr==null) {
-                
+            if (addr==null) {                
             }else{
                 broadcastAddr = addr;
             }

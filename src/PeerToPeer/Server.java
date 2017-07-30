@@ -50,18 +50,21 @@ public class Server implements Runnable {
             try {                                                        
                 in = new BufferedReader(new InputStreamReader(System.in));                
                 Line = in.readLine();
-                if(Line.equals("--listar")){
+                if(Line.compareTo("--listar")==0){
                     map.clear();                    
                 }                                                   
                 buffer = Line.getBytes();               
                 dp = new DatagramPacket(buffer,buffer.length,broadcastAddr,port);     
                 ds.send(dp);
-                if(Line.equals("--listar")){
+                if(Line.compareTo("--listar")==0){
                     Thread.sleep(1000);                    
                     for (Map.Entry<String, String> entry : map.entrySet()) {                        
                         System.out.println("Usuario Connectado: "+entry.getKey()+"\t"+entry.getValue());
                     }                   
-                }              
+                }
+                if (Line.compareTo("--jugar")==0) {
+                    new Palabras().frase();
+                }
             } catch (IOException ex) {
                 Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InterruptedException ex) {

@@ -45,16 +45,7 @@ public class Palabras {
             String palabra = tokens.nextToken().replaceAll("[,|.|:|;]", "");
             listaPalabrar.put(i, palabra);            
             i++;
-        }
-//        for (Map.Entry<Integer, String> entry : listaPalabrar.entrySet()) {
-//            Integer key = entry.getKey();
-//            String value = entry.getValue();
-//            System.out.println(key+" : "+value);
-//            
-//        }
-        
-        //System.out.println("Núm. aleatorios sin repetición:");        
-        //System.out.println(reparto(listaPalabrar.size()).toString());
+        }      
         for (Integer word : reparto(listaPalabrar.size())) {
             System.out.println(word+" = "+listaPalabrar.get(word));
         }

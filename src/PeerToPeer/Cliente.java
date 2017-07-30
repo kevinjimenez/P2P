@@ -40,10 +40,10 @@ public class Cliente implements Runnable{
     }
     @Override
     public void run() {
-     escuchar();
+     listener();
     }
     
-    private void escuchar(){
+    private void listener(){
         buffer = new byte[256];
         while(true){            
             try {               
@@ -61,8 +61,8 @@ public class Cliente implements Runnable{
         }        
     }
     
-    private String parsear(String msj, String hostAddress){       
-        if(msj.equals("--listar")){                        
+    private String parsear(String mensaje, String hostAddress){       
+        if(mensaje.equals("--listar")){                        
             try {
                 buffer = new byte[256];                
                 reporte="report@"+usrName;
@@ -74,7 +74,7 @@ public class Cliente implements Runnable{
             }            
         return null;
         }
-        tokens = new StringTokenizer(msj,"@");
+        tokens = new StringTokenizer(mensaje,"@");
         index=tokens.nextToken();
         if(index.equals(usrName)||index.equals("global")){
             if(index.equals("global")){
