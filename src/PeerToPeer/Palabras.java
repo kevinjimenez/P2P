@@ -54,12 +54,7 @@ public class Palabras {
             System.out.println(key+" "+value);
             
         }
-        
-//        System.out.println("\n");
-//        for (Barajas x : listaPro) {
-//            System.out.println(x.id+" : "+x.palabra);
-//        }
-        
+ 
         
     }
     

@@ -28,7 +28,7 @@ public class Juego {
     String usrNameRecivido,word;
     StringTokenizer tokens;
     Integer key;
-    int valor;
+    int temp;
     
     public Juego(HashMap<String, String> map) {
         this.map=map;
@@ -55,7 +55,7 @@ public class Juego {
                 System.err.println(usrNameRecivido+" name "+usrName+" "+key+" "+word);
                 if (usrNameRecivido.equals(usrName)) {
                     listCards.put(key, word);
-                    valor = Integer.parseInt(tokens.nextToken());
+                    temp = Integer.parseInt(tokens.nextToken());
                 }
             }
         }
@@ -70,7 +70,7 @@ public class Juego {
     public void sendCads(String str){ //intercambio        
         int newKey=Integer.parseInt(str);
         String neWord=str;
-        if (((valor-1)*10)<newKey&&(valor)*10>=newKey) {
+        if (((temp-1)*10)<newKey&&(temp)*10>=newKey) {
             listCards.put(newKey, neWord);
             System.out.println("cartas finales");
             for (Map.Entry<Integer, String> entry : listCards.entrySet()) {                
@@ -85,7 +85,7 @@ public class Juego {
         for (Map.Entry<String, String> entry : map.entrySet()) {
             String llave = entry.getKey();
             String value = entry.getValue();
-            if (((valor-1)*10)<Integer.parseInt(llave)&&(valor)*10>=Integer.parseInt(llave)) {                
+            if (((temp-1)*10)<Integer.parseInt(llave)&&(temp)*10>=Integer.parseInt(llave)) {                
             }else{
                 sobras.put(Integer.parseInt(llave), value);
                 noSriven[index]=Integer.parseInt(llave);

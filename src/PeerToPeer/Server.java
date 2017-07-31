@@ -129,16 +129,7 @@ public class Server implements Runnable{
                         break;
                     }
                 }
-                //game.sendCads(tokens.nextToken());
-                int newKey=Integer.parseInt(tokens.nextToken());
-                String neWord=tokens.nextToken();
-                if (((valor-1)*10)<newKey&&(valor)*10>=newKey) {
-                    listCards.put(newKey, neWord);
-                    System.out.println("cartas finales");
-                    for (Map.Entry<Integer, String> entry : listCards.entrySet()) {                
-                        System.out.println(entry.getKey()+" "+entry.getValue());
-                    }
-                }
+                //game.sendCads(tokens.nextToken());                
         }
         if(str.equals("report")){
             userName=tokens.nextToken();
