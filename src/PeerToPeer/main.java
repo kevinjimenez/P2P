@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.SocketException;
 import java.util.HashMap;
 
+
 /**
  *
  * @author kevin
@@ -17,12 +18,12 @@ import java.util.HashMap;
 public class main {
     static String usrName;
     static int port;
-    static HashMap< Integer, String> h;
+    static HashMap< Integer, String> cards;
     public static void main(String[] args) throws SocketException, FileNotFoundException, IOException {
         usrName="kevin";
         System.out.println(usrName);
         port=5000;
-        new Encendido(usrName, port).turnUP();
+        new Key_Palabra(usrName, port).turnUP();
         
     }
     

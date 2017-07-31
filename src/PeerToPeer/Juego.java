@@ -8,6 +8,7 @@ package PeerToPeer;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -39,19 +40,19 @@ public class Juego {
     }
     
     
-    public void play(DatagramSocket ds, String msjRecive, String usrName,String reporte) throws IOException, InterruptedException{
+    public void play(DatagramSocket ds, String msjRecive, String usrName) throws IOException, InterruptedException{
+                
         for (int i = 0; i < map.size()*10; i++) {
-            buffer=new byte[256];
+            buffer=new byte[1024];
             dp=new DatagramPacket(buffer, buffer.length);
             ds.receive(dp);
-            msjRecive=new String(dp.getData(),0,dp.getLength());
-            System.out.println(msjRecive);
+            msjRecive=new String(dp.getData(),0,dp.getLength());            
             if(msjRecive.compareTo("jugar")!=0){
                 tokens = new StringTokenizer(msjRecive,"@");
                 usrNameRecivido=tokens.nextToken();
-                key = Integer.parseInt(tokens.nextToken());
                 word = tokens.nextToken();
-                System.out.println(usrNameRecivido+" name "+usrName+" "+key+" "+word);
+                key = Integer.parseInt(tokens.nextToken());                
+                System.err.println(usrNameRecivido+" name "+usrName+" "+key+" "+word);
                 if (usrNameRecivido.equals(usrName)) {
                     listCards.put(key, word);
                     valor = Integer.parseInt(tokens.nextToken());
@@ -63,7 +64,7 @@ public class Juego {
         }
         sortCards();
         Thread.sleep(1000);
-        intercambioCards(reporte, ds);
+        intercambioCards(ds);
         
     }
     public void sendCads(String str){ //intercambio        
@@ -104,12 +105,12 @@ public class Juego {
         }
     }
     
-    public void intercambioCards(String reporte,DatagramSocket ds) throws IOException{
+    public void intercambioCards(DatagramSocket ds) throws IOException{
         for (Map.Entry<Integer, String> entry : sobras.entrySet()) {
-            buffer = new byte[256];
-            reporte="intercambio@"+entry.getKey()+"@"+entry.getValue();
-            System.out.println(reporte);
-            buffer=reporte.getBytes();
+            buffer = new byte[1024];
+            String reporte1="intercambio@"+entry.getKey()+"@"+entry.getValue();
+            System.out.println(reporte1);
+            buffer=reporte1.getBytes();
             dp=new DatagramPacket(buffer, buffer.length);
             ds.send(dp);
         }

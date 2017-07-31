@@ -15,9 +15,10 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.HashMap;
 import java.util.Map;
-import static PeerToPeer.main.h;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static PeerToPeer.main.cards;
+import static PeerToPeer.main.cards;
 
 
 /**
@@ -67,14 +68,17 @@ public class Client implements Runnable {
                 if (Line.compareTo("jugar")==0) {
                     int index=0;
                     String sending=null;
-                    buffer=new byte[256];
+                    byte []buffer1=new byte[256];
                     for (Map.Entry<String, String> entry : map.entrySet()) {
                         index++;
                         System.out.println("Usuario Connectado: "+entry.getKey()+"\t"+entry.getValue());
                         System.err.println("nombre a quien enviamos "+map.size());
-                        for (int i = index; i <= map.size()*10; i=i+map.size()) {
-                            sending=entry.getKey()+"@"+(i)+"@"+h.get(i)+"@"+index;
-                        }
+//                        for (int i = index; i <= map.size()*10; i=i+map.size()) {
+//                            sending=entry.getKey()+"@"+(i)+"@"+h.get(i)+"@"+index;
+//                            buffer1=sending.getBytes();
+//                            dp=new DatagramPacket(buffer1, buffer1.length,broadcastAddr,port);
+//                            ds.send(dp);
+//                        }
                         
                     }
                 }

@@ -28,9 +28,11 @@ public class Server implements Runnable{
     DatagramSocket ds;
     DatagramPacket dp;
     StringTokenizer tokens;
-    String usrName,msjRecibido,addrDestino,parser,str,reporte,nodo;    
-    int port;    
+    String usrName,msjRecibido,addrDestino,parser,str,reporte,userName;    
+    int port,valor;    
     HashMap<String , String> map;
+    HashMap<Integer, String> listCards;
+    HashMap<Integer, String> sobras;
     byte [] buffer;
     Palabras cartas;
     
@@ -43,6 +45,8 @@ public class Server implements Runnable{
         ds = new DatagramSocket(port);                
         game=new Juego(this.map);
         cartas = new Palabras();
+        listCards= new HashMap<>();
+        sobras=new HashMap<>();
     }
     @Override
     public void run() {
@@ -54,7 +58,7 @@ public class Server implements Runnable{
     }
     
     private void listener() throws FileNotFoundException, InterruptedException{
-        buffer = new byte[256];
+        buffer = new byte[1024];
         while(true){            
             try {               
                 dp = new DatagramPacket(buffer, buffer.length);
@@ -74,7 +78,7 @@ public class Server implements Runnable{
     private String parsear(String mensaje, String hostAddress) throws FileNotFoundException, IOException, InterruptedException{       
         if(mensaje.compareTo("--listar")==0){                        
             try {
-                buffer = new byte[256];                
+                buffer = new byte[1024];                
                 reporte="report@"+usrName;
                 buffer = reporte.getBytes();               
                 dp = new DatagramPacket(buffer,buffer.length,broadcastAddr,port);     
@@ -86,24 +90,7 @@ public class Server implements Runnable{
         }
         tokens = new StringTokenizer(mensaje,"@");        
         str=tokens.nextToken();
-        if(str.equals(usrName)||str.equals("global")||str.equals("jugar")||str.equals("intercambio")){
-            if (str.compareTo("jugar")==0) {
-                for (Map.Entry<String, String> entry : map.entrySet()) {
-                    if (entry.getValue().equals(hostAddress)) {
-                        System.out.println(entry.getKey()+" desde "+hostAddress+" manda las siguientes palabras:");
-                        break;                        
-                    }                    
-                }
-                game.play(ds, msjRecibido, usrName,reporte);                
-            }
-            if (str.compareTo("intercambio")==0) {
-                for (Map.Entry<String, String> entry : map.entrySet()) {                    
-                    if (map.containsValue(hostAddress)) {
-                        break;
-                    }
-                }
-                game.sendCads(tokens.nextToken());
-            }
+        if(str.equals(usrName)||str.equals("global")){                        
             if(str.equals("global")){
                 for (Map.Entry<String, String> entry : map.entrySet()) {                                      
                     if(entry.getValue().equals(hostAddress)){
@@ -123,19 +110,45 @@ public class Server implements Runnable{
             String next = tokens.nextToken();        
         return next;
         }
+        if (str.compareTo("jugar")==0) {
+                for (Map.Entry<String, String> entry : map.entrySet()) {
+                    if (entry.getValue().equals(hostAddress)) {
+                        System.out.println(entry.getKey()+" desde "+hostAddress+" manda las siguientes palabras:");
+                        break;                        
+                    }                    
+                }
+                
+                //game.play(ds, mensaje, usrName,reporte);                
+                //game.play(ds, mensaje, usrName);
+                
+        }
+        if (str.compareTo("intercambio")==0) {
+                //System.out.println("khe");
+                for (Map.Entry<String, String> entry : map.entrySet()) {                    
+                    if (map.containsValue(hostAddress)) {
+                        break;
+                    }
+                }
+                //game.sendCads(tokens.nextToken());
+                int newKey=Integer.parseInt(tokens.nextToken());
+                String neWord=tokens.nextToken();
+                if (((valor-1)*10)<newKey&&(valor)*10>=newKey) {
+                    listCards.put(newKey, neWord);
+                    System.out.println("cartas finales");
+                    for (Map.Entry<Integer, String> entry : listCards.entrySet()) {                
+                        System.out.println(entry.getKey()+" "+entry.getValue());
+                    }
+                }
+        }
         if(str.equals("report")){
-            nodo=tokens.nextToken();
-            System.out.println(nodo);
-            map.put(nodo, hostAddress);
-            for (Map.Entry<String, String> entry : map.entrySet()) {
-                String key = entry.getKey();
-                String value = entry.getValue();
-                System.out.println(key+":"+value);
-            }
+            userName=tokens.nextToken();
+            map.put(userName, hostAddress);            
         return null;
         }                  
     return null;                        
     }
+    
+    
     
      
 }

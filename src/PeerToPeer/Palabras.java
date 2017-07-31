@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 import java.util.StringTokenizer;
+import static PeerToPeer.main.cards;
 
 /**
  *
@@ -22,9 +23,7 @@ import java.util.StringTokenizer;
  */
 public class Palabras {
         
-    Stack < Integer > listRandom;
-    HashMap<Integer, String> listaPalabrar; 
-    ArrayList<Barajas> listaPro;
+   
     File texto ;
     BufferedReader in;
     StringTokenizer tokens;
@@ -33,48 +32,40 @@ public class Palabras {
     int llave;
 
     public Palabras() throws FileNotFoundException {
-        listaPalabrar = new HashMap<>();
-        listaPro=new ArrayList<>();
+        cards = new HashMap<>();
+        
         texto = new File("src/frases.txt");
         in = new BufferedReader(new FileReader(texto));
     }
     
     
-    public ArrayList<Barajas> frase() throws IOException {                
+    public void frase() throws IOException {                
         Line = in.readLine();
         tokens = new StringTokenizer(Line," ");        
         int i = 1;
         while (tokens.hasMoreTokens()) {
             String palabra = tokens.nextToken().replaceAll("[,|.|:|;]", "");
-            listaPalabrar.put(i, palabra);            
+            cards.put(i, palabra);            
             i++;
         }      
-        for (Integer word : reparto(listaPalabrar.size())) {
-            //System.out.println(word+" = "+listaPalabrar.get(word));
-            Barajas carta = new Barajas();
-            carta.id=word;
-            carta.palabra=listaPalabrar.get(word);
-            listaPro.add(carta);
+        for (Map.Entry<Integer, String> entry : cards.entrySet()) {
+            Integer key = entry.getKey();
+            String value = entry.getValue();
+            System.out.println(key+" "+value);
+            
         }
+        
 //        System.out.println("\n");
 //        for (Barajas x : listaPro) {
 //            System.out.println(x.id+" : "+x.palabra);
 //        }
-        return listaPro;
+        
         
     }
     
-    private Stack<Integer> reparto(int tamano){
-        listRandom = new Stack<Integer>();
-        for (int i = 0; i < tamano; i++) {
-            llave=(int) Math.floor(Math.random()*tamano);
-            while (listRandom.contains(llave)) {                
-                llave = (int) Math.floor(Math.random()*tamano);
-            }
-            listRandom.push(llave);
-        }        
-        return listRandom;
-    }
+    
+    
+    
     
     
     
