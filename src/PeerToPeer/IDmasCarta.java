@@ -10,7 +10,7 @@ package PeerToPeer;
  *
  * @author kevin
  */
-public class Barajas {
+public class IDmasCarta {
     public Integer id;
     public String palabra; 
     

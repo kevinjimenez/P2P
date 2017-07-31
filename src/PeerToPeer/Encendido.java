@@ -19,14 +19,14 @@ import java.util.concurrent.Executors;
  *
  * @author kevin
  */
-public class Key_Palabra {
+public class Encendido {
     InetAddress broadcastAddr;
     HashMap<String,String> map = new HashMap<>();
     String nombreInterfaz="wlp7s0";
     String usrNamr;
     int port;
 
-    public Key_Palabra(String usrNamr, int port) {
+    public Encendido(String usrNamr, int port) {
         this.usrNamr = usrNamr;
         this.port = port;
     }        

@@ -23,7 +23,7 @@ public class main {
         usrName="kevin";
         System.out.println(usrName);
         port=5000;
-        new Key_Palabra(usrName, port).turnUP();
+        new Encendido(usrName, port).turnUP();
         
     }
     
