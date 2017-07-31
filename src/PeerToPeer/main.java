@@ -8,6 +8,7 @@ package PeerToPeer;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.SocketException;
+import java.util.HashMap;
 
 /**
  *
@@ -16,6 +17,7 @@ import java.net.SocketException;
 public class main {
     static String usrName;
     static int port;
+    static HashMap< Integer, String> h;
     public static void main(String[] args) throws SocketException, FileNotFoundException, IOException {
         usrName="kevin";
         System.out.println(usrName);

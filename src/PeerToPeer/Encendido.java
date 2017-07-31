@@ -41,8 +41,8 @@ public class Encendido {
         }
         System.out.println("Direccion de BroadCast\t"+broadcastAddr.getHostAddress());
         ExecutorService ex = Executors.newCachedThreadPool();     
-        ex.submit(new Server(broadcastAddr, port, usrNamr,map));
-        ex.submit(new Cliente(broadcastAddr, port,usrNamr,map));
+        ex.submit(new Client(broadcastAddr, port, usrNamr,map));
+        ex.submit(new Server(broadcastAddr, port,usrNamr,map));
         
     }
     
